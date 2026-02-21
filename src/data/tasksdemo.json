@@ -1,0 +1,26 @@
+[
+    {
+        "id": 1,
+        "title": "My Portofolio Website",
+        "description": "I want to create a portofolio website to showcase my projects and skills. I will use React and Tailwind CSS to build it.",
+        "status": "To Do"
+    },
+    {
+        "id": 2,
+        "title": "Make Breakfast",
+        "description": "Sandwich with eggs, bacon and cheese",
+        "status": "To Do"
+    },
+    {
+        "id": 3,
+        "title": "Go to the Gym",
+        "description": "I want to go to the gym to work out and stay healthy.",
+        "status": "In Progress"
+    },
+    {
+        "id": 4,
+        "title": "Read a Book",
+        "description": "I want to read a book to relax and learn something new.",
+        "status": "Done"
+    }
+]
