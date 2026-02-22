@@ -55,7 +55,21 @@ export const taskSlice = createSlice({
         ...remainingTasks.filter(t => t.status !== newStatus),
         ...tasksInDestinationColumn,
       ]
-    },
+      },
+    updateTaskTitleAndDescription: (state, action) => {
+        const { taskId, newTitle, newDescription , columnId } = action.payload
+        const currentState = current(state)
+        console.log("Current state in reducer:", currentState)
+
+        const columnTasks = state.tasks.filter(t => t.status === columnId)
+        const taskToUpdate = columnTasks.find(task => {
+            return task.id === taskId
+        })
+      
+      if (!taskToUpdate) return
+        taskToUpdate.title = newTitle
+        taskToUpdate.description = newDescription
+    }
   },
 })
 

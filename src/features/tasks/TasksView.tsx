@@ -6,12 +6,12 @@ import  { store } from "../../app/store"
 import TaskColumn from "../../components/TaskColumn"
 import { DragDropContext } from "@hello-pangea/dnd"
 
+
 export default function TasksView() {
     const dispatch = useDispatch()
     const unsubscribe = store.subscribe(() => console.log("Store updated:", store.getState()))
     unsubscribe() 
     const tasks = useSelector((state:RootState) => state.taskReducer.tasks)
-
 
   const todoTasks = tasks.filter((task) => task.status === "To Do")
   const inProgressTasks = tasks.filter((task) => task.status === "In Progress")

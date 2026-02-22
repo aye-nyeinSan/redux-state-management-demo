@@ -32,6 +32,7 @@ export default function TaskColumn({ columnTitle, todoTasks, columnId }   : { co
                       title={task.title}
                       description={task.description}
                       isDragging={snapshot.isDragging}
+                      columnId={task.status}
                     />
                   </div>
                 )}
