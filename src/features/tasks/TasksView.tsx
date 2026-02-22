@@ -62,10 +62,12 @@ export default function TasksView() {
         ? "In Progress"
         : "Done"
 
-    console.log("Result of drag:", result.draggableId, newStatus)
-    dispatch(taskActions.updateTasksStatus({ taskId: parseInt(result.draggableId), newStatus }))
-    console.log("Task status updated in store")
-    console.log(store.getState())
+    dispatch(taskActions.updateTasksStatus({
+      taskId: parseInt(result.draggableId),
+      newStatus,
+      destinationIndex: destination.index
+    }))
+  
   }
 
 
