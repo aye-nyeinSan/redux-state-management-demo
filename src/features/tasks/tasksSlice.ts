@@ -69,6 +69,10 @@ export const taskSlice = createSlice({
       if (!taskToUpdate) return
         taskToUpdate.title = newTitle
         taskToUpdate.description = newDescription
+      },
+    removeTasksInColumn: (state, action) => {
+      const columnId = action.payload
+      state.tasks = state.tasks.filter(t => t.status !== columnId)
     }
   },
 })

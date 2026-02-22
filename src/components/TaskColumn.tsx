@@ -1,3 +1,4 @@
+import { Trash } from "lucide-react"
 import TaskCard from "./TaskCard"
 import {  Draggable, Droppable } from "@hello-pangea/dnd"
 export default function TaskColumn({ columnTitle, todoTasks, columnId }   : { columnTitle: string, todoTasks: any[] , columnId: string}) { 
@@ -34,6 +35,7 @@ export default function TaskColumn({ columnTitle, todoTasks, columnId }   : { co
                       isDragging={snapshot.isDragging}
                       columnId={task.status}
                     />
+          
                   </div>
                 )}
               </Draggable>

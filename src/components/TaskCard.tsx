@@ -1,9 +1,8 @@
 import { Card, CardHeader, CardTitle, CardDescription, } from "../components/ui/card"
 import { useState } from "react"
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch } from "react-redux"
 import { taskActions } from "../features/tasks/tasksSlice"
-
-
+import { Trash } from "lucide-react"
 export default function TaskCard({ title, description, id, isDragging, columnId }: { title?: string, description?: string, id?: number, isDragging?: boolean, columnId?: string }) {
     const [isFocused, setIsFocused] = useState(false)
     const [editedTitle, setEditedTitle] = useState(title)
@@ -44,23 +43,33 @@ export default function TaskCard({ title, description, id, isDragging, columnId 
         className={`w-full ${isFocused ? "cursor-default" : "cursor-pointer"} ${isDragging ? "bg-blue-200" : ""}`}
       >
         <CardHeader>
-          <CardTitle>
-            {!isFocused ? (
-              <span>{title}</span>
-            ) : (
-              <input
-                autoFocus
-                type="text"
-                placeholder={editedTitle}
-                value={editedTitle}
-                onClick={e => e.stopPropagation()}
-                onChange={e => setEditedTitle(e.target.value)}
-                onBlur={handleOnBlur}
-                onKeyDown={e => e.key === "Enter" && handleOnSave()}
-                className="border-none rounded w-full mb-2 cursor-text outline-0 bg-transparent"
-              />
-            )}
-          </CardTitle>
+          <div className="flex justify-between items-start">
+            <CardTitle>
+              {!isFocused ? (
+                <span>{title}</span>
+              ) : (
+                <input
+                  autoFocus
+                  type="text"
+                  placeholder={editedTitle}
+                  value={editedTitle}
+                  onClick={e => e.stopPropagation()}
+                  onChange={e => setEditedTitle(e.target.value)}
+                  onBlur={handleOnBlur}
+                  onKeyDown={e => e.key === "Enter" && handleOnSave()}
+                  className="border-none rounded w-full mb-2 cursor-text outline-0 bg-transparent"
+                />
+              )}
+            </CardTitle>
+            <Trash
+               onClick={(e) => {
+                e.stopPropagation()
+                dispatch(taskActions.removeTask(id))
+                        }}
+              className="w-4 h-4 cursor-pointer hover:text-red-500"
+            />
+          </div>
+
           <CardDescription>
             {!isFocused ? (
               <span className="whitespace-pre-wrap block ">{description}</span>
@@ -70,7 +79,6 @@ export default function TaskCard({ title, description, id, isDragging, columnId 
                 value={editedDescription}
                 onClick={e => e.stopPropagation()}
                 onChange={e => setEditedDescription(e.target.value)}
-        
                 onBlur={handleOnBlur}
                 onKeyDown={e => {
                   if (e.key === "Enter" && !e.shiftKey) {
