@@ -4,7 +4,7 @@ import { taskActions } from "./tasksSlice"
 import type { RootState } from "../../app/store"
 import  { store } from "../../app/store"
 import TaskColumn from "../../components/TaskColumn"
-import { DragDropContext , Droppable} from "@hello-pangea/dnd"
+import { DragDropContext } from "@hello-pangea/dnd"
 
 export default function TasksView() {
     const dispatch = useDispatch()
@@ -43,7 +43,17 @@ export default function TasksView() {
       source.index === destination.index
     )
       return
-
+    
+    if (source.droppableId === destination.droppableId) {
+      //change order of tasks in the same column
+      dispatch(
+        taskActions.orderTasksInColumn({
+          columnId: destination.droppableId === "todo-column" ? "To Do" : destination.droppableId === "in-progress-column" ? "In Progress" : "Done",
+          sourceIndex: source.index,
+          destinationIndex: destination.index,
+        }),
+      )
+    }
     // Dispatch an action to update the task's status based on the destination column
     const newStatus =
       destination.droppableId === "todo-column"
@@ -52,13 +62,12 @@ export default function TasksView() {
         ? "In Progress"
         : "Done"
 
-    dispatch(
-      taskActions.updateTaskStatus({
-        id: parseInt(result.draggableId),
-        status: newStatus,
-      })
-    )
+    console.log("Result of drag:", result.draggableId, newStatus)
+    dispatch(taskActions.updateTasksStatus({ taskId: parseInt(result.draggableId), newStatus }))
+    console.log("Task status updated in store")
+    console.log(store.getState())
   }
+
 
   return (
     <div className="mx-auto max-w-7xl p-6">

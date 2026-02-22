@@ -5,7 +5,8 @@ export default function TaskCard({title, description,id, isDragging}: {title?: s
         <Card id={id?.toString()} className={`w-full cursor-pointer ${isDragging ? "bg-blue-200" : ""}`}>
             <CardHeader>
                 <CardTitle>{title}</CardTitle>
-                <CardDescription>{ description }</CardDescription>
+                <CardDescription>{description} <br />Card ID: {id}</CardDescription>
+                
             </CardHeader>
         </Card>
     )

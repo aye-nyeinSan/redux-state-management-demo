@@ -1,5 +1,6 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, current } from '@reduxjs/toolkit';
 import demo from '../../data/tasksdemo.json'
+
 
 export type Task = {
   id: number
@@ -25,16 +26,29 @@ export const taskSlice = createSlice({
         removeTask: (state, action) => {
             state.tasks = state.tasks.filter(task => task.id !== action.payload);
         },
-        updateTaskStatus: (state, action) => {
-            const { id, status } = action.payload
-            const task = state.tasks.find(task => task.id === id)
-            if (task) {
-                task.status = status
-            }
-            else {
-                console.warn(`Task with id ${id} not found`)
-                return 
-            }
+        orderTasksInColumn: (state, action) => {
+            const { columnId, sourceIndex, destinationIndex } = action.payload
+            const columnTasks = state.tasks.filter(t => t.status === columnId)
+
+            if(columnTasks.length === 0) return
+            const [removed] = columnTasks.splice(sourceIndex, 1)
+            columnTasks.splice(destinationIndex, 0, removed)
+
+            const otherTasks = state.tasks.filter(t => t.status !== columnId) 
+
+            state.tasks = [...otherTasks, ...columnTasks]
+        },
+        updateTasksStatus: (state, action) => {
+            const { taskId, newStatus} = action.payload
+            const statusofTask = state.tasks.map(task => {
+                console.log("Checking task:", current(task))
+                if (task.id === taskId) { 
+                    return {...task, status: newStatus,}
+                }
+                return task
+            })
+
+            state.tasks = statusofTask
         }
     }
 })
