@@ -1,7 +1,7 @@
 # Kanban Board Project 
 
 ## What this is
-A small TypeScript React app that demonstrates a Notion-like kanban board built with Redux Toolkit and a drag‑and‑drop library — intended as a demo of Redux state management for tasks/columns. It's aimed at developers learning how to model board state and wire DnD interactions into a Redux store.
+A small TypeScript React app that demonstrates a Notion-like kanban board built with Redux Toolkit and a drag‑and‑drop library — intended as a demo of Redux state management for tasks/columns. 
 
 ### Stack
 - **Language(s):** TypeScript (primary), CSS, small bits of JavaScript/HTML  
